@@ -1,106 +1,88 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
-  Button,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   Image,
-  FlatList,
-  SectionList,
   Switch,
 } from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Login } from "./Login";
+import { utilsContext } from "./Context";
 
 const styles = StyleSheet.create({
-    input: {
-      height: 40,
-      marginLeft: 40,
-      marginRight: 40,
-      marginTop: 10,
-      padding: 10,
-      backgroundColor: "white",
-      borderRadius: 5,
-    },
+  input: {
+    height: 40,
+    marginLeft: 40,
+    marginRight: 40,
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: "white",
+    borderRadius: 5,
+  },
 
-    bg: {
-      backgroundColor: "lightgray",
-      height: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-    },
+  bg: {
+    backgroundColor: "lightgray",
+    height: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+  },
 
-    bgUsers: {
-      backgroundColor: "lightgray",
-      height: "100%"
-    },
+  bgUsers: {
+    backgroundColor: "lightgray",
+    height: "100%",
+  },
 
-    inputs1: {
-      flexDirection: "row",
-      alignItems: 'center'
-    },
+  inputs1: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 
-    textView: {
-      marginLeft: 40,
-      marginTop:20
-    },
+  textView: {
+    marginLeft: 40,
+    marginTop: 20,
+  },
 
-    switch: {
-      marginLeft: 12,
-    },
+  switch: {
+    marginLeft: 12,
+  },
 
-    button: {
-      padding: 10,
-      margin: 12,
-      backgroundColor: "white",
-    },
-    button1: {
-      padding: 10,
-      margin: 12,
-    },
+  button: {
+    padding: 10,
+    margin: 12,
+    backgroundColor: "white",
+  },
+  button1: {
+    padding: 10,
+    margin: 12,
+  },
 
-    textbutton: {
-      textAlign: "center",
-    },
+  textbutton: {
+    textAlign: "center",
+  },
 
-    buttonLogin: {
-      display: "flex",
-      justifyContent: "flex-end",
-    },
+  buttonLogin: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
 
-    title: {
-      marginTop: '10%',
-      marginBottom: '10%',
-      fontSize: 100,
-      textAlign: "center",
-    },
+  title: {
+    marginTop: "10%",
+    marginBottom: "10%",
+    fontSize: 100,
+    textAlign: "center",
+  },
 
-    titleUsers: {
-      fontSize: 70
-    }
-
-  });
+  titleUsers: {
+    fontSize: 70,
+  },
+});
 
 export function Cadastro(props) {
 
-
-    function cadastrar() {
-        array.push({
-          nome,
-          idade,
-          sexo,
-          email, 
-          senha,
-          notificacao,
-        });
-      
-        console.log(array);
-    }
-
-
+  
+  const { data, setData } = useContext(utilsContext)
   const [nome, setNome] = useState("");
   const [idade, setIdade] = useState("");
   const [sexo, setSexo] = useState("");
@@ -108,7 +90,12 @@ export function Cadastro(props) {
   const [senha, setSenha] = useState("");
   const [confirmarsenha, setConfirmarSenha] = useState("");
   const [notificacao, setNotificacao] = useState(false);
-  const array = [];
+  
+  function cadastrar() {
+    setData([...data,{nome,idade,sexo,email,senha,notificacao}])
+    props.navigation.navigate("Login")
+  }
+
   return (
     <View style={styles.bg}>
       <Image
@@ -127,7 +114,7 @@ export function Cadastro(props) {
         maxLength={20}
         numberOfLines={2}
         width={10}
-        onChangetext={(text) => setNome(text)}
+        onChangeText={(text) => setNome(text)}
       />
 
       <View style={styles.inputs1}>
@@ -139,7 +126,7 @@ export function Cadastro(props) {
             maxLength={20}
             numberOfLines={2}
             width={10}
-            onChangetext={(text) => setIdade(text)}
+            onChangeText={(text) => setIdade(text)}
           />
         </View>
 
@@ -151,7 +138,7 @@ export function Cadastro(props) {
             maxLength={20}
             numberOfLines={2}
             width={10}
-            onChangetext={(text) => setSexo(text)}
+            onChangeText={(text) => setSexo(text)}
           />
         </View>
       </View>
@@ -164,7 +151,7 @@ export function Cadastro(props) {
           maxLength={20}
           numberOfLines={2}
           width={10}
-          onChangetext={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
         />
       </View>
 
@@ -176,7 +163,7 @@ export function Cadastro(props) {
           maxLength={20}
           numberOfLines={2}
           width={10}
-          onChangetext={(text) => setSenha(text)}
+          onChangeText={(text) => setSenha(text)}
         />
       </View>
 
@@ -188,7 +175,7 @@ export function Cadastro(props) {
           maxLength={20}
           numberOfLines={2}
           width={10}
-          onChangetext={(text) => setConfirmarSenha(text)}
+          onChangeText={(text) => setConfirmarSenha(text)}
         />
       </View>
 
@@ -212,7 +199,6 @@ export function Cadastro(props) {
           <Text style={styles.textbutton}>Cancelar</Text>
         </TouchableOpacity>
       </View>
-      
     </View>
   );
 }
